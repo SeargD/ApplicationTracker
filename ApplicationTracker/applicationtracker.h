@@ -3,6 +3,8 @@
 #define APPLICATIONTRACKER_H
 
 #include <QMainWindow>
+#include <QFile>
+#include <filesystem>
 
 
 
@@ -19,11 +21,18 @@ public:
     ApplicationTracker(QWidget *parent = nullptr);
     ~ApplicationTracker();
 
-private slots:
-    void on_AddApplication_clicked();
 
 private:
     Ui::ApplicationTracker *ui;
+    void ReadAppData();
+    void ParseAppFile(QJsonDocument& DataIn);
+    QByteArray BuildDefaultData();
+
+    std::filesystem::path DataFile = std::filesystem::current_path();
+    QFile AppDataFile;
+
+private slots:
+    void on_AddApplication_clicked();
 };
 
 #endif // APPLICATIONTRACKER_H
