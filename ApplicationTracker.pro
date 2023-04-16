@@ -16,6 +16,7 @@ SOURCES += \
     main.cpp
 
 HEADERS += \
+    ApplicationTackerEnums.h \
     ApplicationTracker/applicationtable.h \
     ApplicationTracker/applicationtracker.h \
     NewApplication/newappdialog.h \

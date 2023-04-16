@@ -29,17 +29,17 @@ QVariant ApplicationTable::headerData(int section, Qt::Orientation orientation, 
 int ApplicationTable::rowCount(const QModelIndex &parent) const
 {
     if (parent.isValid())
-        return 0;
+        return JarrData.count();
 
-    return JarrData.count();
+    return -1;
 }
 
 int ApplicationTable::columnCount(const QModelIndex &parent) const
 {
     if (parent.isValid())
-        return 0;
+        return Columns.count();
 
-    return Columns.count();
+    return -1;
 }
 
 QVariant ApplicationTable::data(const QModelIndex &index, int role) const

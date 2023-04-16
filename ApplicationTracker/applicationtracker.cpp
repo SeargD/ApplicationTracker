@@ -12,9 +12,10 @@ ApplicationTracker::ApplicationTracker(QWidget *parent)
     ui->setupUi(this);
     DataFile.replace_filename("AppData.json");
     AppDataFile.setFileName(DataFile);
+    //Initialise model with data from JSON file
     ReadAppData();
-    //ui->tApplications->setModel();
-    //ui->tApplications->show();
+
+    //Show TableView with data initialised
 }
 
 ApplicationTracker::~ApplicationTracker()

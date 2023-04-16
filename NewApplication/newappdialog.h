@@ -19,9 +19,12 @@ public:
 private:
     Ui::NewAppDialog *ui;
     void WriteToTracker();
-    QJsonDocument ConstructJson();
+    QJsonObject ConstructJson();
+    QHash<QString, QVariant> BuildAppHash();
+
 private slots:
     void on_buttonBox_accepted();
+    void on_TodayButton_clicked();
 };
 
 #endif // NEWAPPDIALOG_H

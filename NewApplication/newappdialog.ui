@@ -26,6 +26,13 @@ color :  rgb(255,255,255)</string>
   <layout class="QGridLayout" name="gridLayout">
    <item row="1" column="0">
     <layout class="QGridLayout" name="gridLayout_2">
+     <item row="4" column="0">
+      <widget class="QLabel" name="lContactName">
+       <property name="text">
+        <string>Contact Name</string>
+       </property>
+      </widget>
+     </item>
      <item row="3" column="0">
       <widget class="QLabel" name="lAdLink">
        <property name="text">
@@ -36,19 +43,6 @@ color :  rgb(255,255,255)</string>
        </property>
       </widget>
      </item>
-     <item row="4" column="0">
-      <widget class="QLabel" name="lDescription">
-       <property name="text">
-        <string>Job Description</string>
-       </property>
-       <property name="buddy">
-        <cstring>plainTextEdit</cstring>
-       </property>
-      </widget>
-     </item>
-     <item row="2" column="1">
-      <widget class="QDateEdit" name="ApplicationDate"/>
-     </item>
      <item row="1" column="0">
       <widget class="QLabel" name="lCompany">
        <property name="text">
@@ -56,26 +50,6 @@ color :  rgb(255,255,255)</string>
        </property>
        <property name="buddy">
         <cstring>CompanyName</cstring>
-       </property>
-      </widget>
-     </item>
-     <item row="0" column="0">
-      <widget class="QLabel" name="lTitle">
-       <property name="text">
-        <string>Job Title</string>
-       </property>
-       <property name="buddy">
-        <cstring>JobTitle</cstring>
-       </property>
-      </widget>
-     </item>
-     <item row="2" column="0">
-      <widget class="QLabel" name="lAppDate">
-       <property name="text">
-        <string>Date Applied</string>
-       </property>
-       <property name="buddy">
-        <cstring>ApplicationDate</cstring>
        </property>
       </widget>
      </item>
@@ -114,16 +88,62 @@ border:1px solid rgb(255,255,255)</string>
        </property>
       </widget>
      </item>
-     <item row="1" column="1">
-      <widget class="QLineEdit" name="CompanyName"/>
+     <item row="6" column="1" colspan="2">
+      <widget class="QPlainTextEdit" name="JobDescription"/>
      </item>
-     <item row="3" column="1">
-      <widget class="QLineEdit" name="AdvertLink"/>
+     <item row="2" column="1">
+      <widget class="QDateEdit" name="ApplicationDate"/>
+     </item>
+     <item row="2" column="0">
+      <widget class="QLabel" name="lAppDate">
+       <property name="text">
+        <string>Date Applied</string>
+       </property>
+       <property name="buddy">
+        <cstring>ApplicationDate</cstring>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="0">
+      <widget class="QLabel" name="lTitle">
+       <property name="text">
+        <string>Job Title</string>
+       </property>
+       <property name="buddy">
+        <cstring>JobTitle</cstring>
+       </property>
+      </widget>
+     </item>
+     <item row="6" column="0">
+      <widget class="QLabel" name="lDescription">
+       <property name="text">
+        <string>Job Description</string>
+       </property>
+       <property name="buddy">
+        <cstring>JobDescription</cstring>
+       </property>
+      </widget>
+     </item>
+     <item row="5" column="0">
+      <widget class="QLabel" name="lContactInfo">
+       <property name="text">
+        <string>Contact Info</string>
+       </property>
+      </widget>
+     </item>
+     <item row="5" column="1" colspan="2">
+      <widget class="QLineEdit" name="ContactInfo"/>
      </item>
      <item row="4" column="1" colspan="2">
-      <widget class="QPlainTextEdit" name="plainTextEdit"/>
+      <widget class="QLineEdit" name="ContactName"/>
      </item>
-     <item row="0" column="1">
+     <item row="3" column="1" colspan="2">
+      <widget class="QLineEdit" name="AdvertLink"/>
+     </item>
+     <item row="1" column="1" colspan="2">
+      <widget class="QLineEdit" name="CompanyName"/>
+     </item>
+     <item row="0" column="1" colspan="2">
       <widget class="QLineEdit" name="JobTitle"/>
      </item>
     </layout>
@@ -157,7 +177,7 @@ border:1px solid rgb(255,255,255)</string>
   <tabstop>ApplicationDate</tabstop>
   <tabstop>TodayButton</tabstop>
   <tabstop>AdvertLink</tabstop>
-  <tabstop>plainTextEdit</tabstop>
+  <tabstop>JobDescription</tabstop>
  </tabstops>
  <resources/>
  <connections>
