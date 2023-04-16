@@ -13,6 +13,8 @@ ApplicationTracker::ApplicationTracker(QWidget *parent)
     DataFile.replace_filename("AppData.json");
     AppDataFile.setFileName(DataFile);
     ReadAppData();
+    //ui->tApplications->setModel();
+    //ui->tApplications->show();
 }
 
 ApplicationTracker::~ApplicationTracker()
@@ -30,6 +32,7 @@ void ApplicationTracker::on_AddApplication_clicked()
 
 void ApplicationTracker::ReadAppData()
 {
+    //Initialises empty JSON file if No data file exists
     if(!AppDataFile.exists())
     {
         AppDataFile.open(QIODevice::ReadWrite);
@@ -45,6 +48,7 @@ void ApplicationTracker::ReadAppData()
 
 void ApplicationTracker::ParseAppFile(QJsonDocument& DataIn)
 {
+    //Checks if
     if(!DataIn.isArray())
     {
         QErrorMessage FileInputError(this);
@@ -52,6 +56,10 @@ void ApplicationTracker::ParseAppFile(QJsonDocument& DataIn)
         FileInputError.exec();
         return;
     }
+
+    AppData = DataIn.array();
+
+
 }
 
 QByteArray ApplicationTracker::BuildDefaultData()

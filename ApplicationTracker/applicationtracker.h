@@ -2,9 +2,11 @@
 #ifndef APPLICATIONTRACKER_H
 #define APPLICATIONTRACKER_H
 
+#include "applicationtable.h"
 #include <QMainWindow>
 #include <QFile>
 #include <filesystem>
+#include <QJsonArray>
 
 
 
@@ -30,6 +32,7 @@ private:
 
     std::filesystem::path DataFile = std::filesystem::current_path();
     QFile AppDataFile;
+    QJsonArray AppData;
 
 private slots:
     void on_AddApplication_clicked();
