@@ -34,8 +34,6 @@ private:
     QFile AppDataFile;
     QJsonArray AppData;
 
-    QSharedPointer<ApplicationTable> modelApplications;
-
 private slots:
     void on_AddApplication_clicked();
 };
