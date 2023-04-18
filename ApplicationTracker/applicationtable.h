@@ -26,6 +26,8 @@ public:
 private:
     QJsonArray JarrData;
     QStringList Columns;
+
+    void InitialiseTable();
 };
 
 #endif // APPLICATIONTABLE_H

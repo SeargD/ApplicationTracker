@@ -14,7 +14,6 @@ ApplicationTracker::ApplicationTracker(QWidget *parent)
     AppDataFile.setFileName(DataFile);
     //Initialise model with data from JSON file
     ReadAppData();
-
     //Show TableView with data initialised
 }
 
@@ -27,8 +26,18 @@ ApplicationTracker::~ApplicationTracker()
 void ApplicationTracker::on_AddApplication_clicked()
 {
     NewAppDialog NewApp(this, &AppData);
+    connect(&NewApp, &NewAppDialog::ApplicationAdded, this, &ApplicationTracker::ApplicationAdded);
 
     NewApp.exec();
+}
+
+void ApplicationTracker::ApplicationAdded()
+{
+    //Write array to file with new object added
+    AppDataFile.open(QIODevice::WriteOnly);
+    QJsonDocument Output(AppData);
+    AppDataFile.write(Output.toJson());
+    AppDataFile.close();
 }
 
 void ApplicationTracker::ReadAppData()
@@ -45,6 +54,8 @@ void ApplicationTracker::ReadAppData()
     AppDataFile.close();
 
     ParseAppFile(DataIn);
+
+     modelApplications = QSharedPointer<ApplicationTable>::create(this, &AppData);
 }
 
 void ApplicationTracker::ParseAppFile(QJsonDocument& DataIn)
@@ -55,7 +66,7 @@ void ApplicationTracker::ParseAppFile(QJsonDocument& DataIn)
         QErrorMessage FileInputError(this);
         FileInputError.showMessage("Input file failed to parse. Input is not array.");
         FileInputError.exec();
-        return;
+        emit exit(-1); //Exits application to avoid unintended data loss due to improper file edits
     }
 
     AppData = DataIn.array();

@@ -38,6 +38,7 @@ private:
 
 private slots:
     void on_AddApplication_clicked();
+    void ApplicationAdded();
 };
 
 #endif // APPLICATIONTRACKER_H

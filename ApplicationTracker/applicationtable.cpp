@@ -10,9 +10,8 @@ ApplicationTable::ApplicationTable(QObject* parent, QJsonArray* AppData)
         return;
 
     JarrData = *AppData;
-    QStringList Columns = JarrData[0].toObject().keys();
 
-
+    InitialiseTable();
 }
 
 QVariant ApplicationTable::headerData(int section, Qt::Orientation orientation, int role) const
@@ -49,6 +48,15 @@ QVariant ApplicationTable::data(const QModelIndex &index, int role) const
 
 
     return QVariant();
+}
+
+void ApplicationTable::InitialiseTable()
+{
+
+    for(QJsonValue ObjIn : JarrData)
+    {
+        insertRow();
+    }
 }
 
 

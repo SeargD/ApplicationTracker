@@ -23,10 +23,12 @@ NewAppDialog::~NewAppDialog()
 void NewAppDialog::WriteToTracker()
 {
     //Insert Data from form into JSON array held in memory
-    QJsonObject ObjToInsert = ConstructJson();
+    QJsonObject ObjToInsert(ConstructJson());
 
     AppData->insert(AppData->end(), ObjToInsert);
-    //Don't write to file in this function.(maybe)
+
+    emit ApplicationAdded();
+    //Don't write to file in this function.Writing to file & model handled by main tracker.
 }
 
 QJsonObject NewAppDialog::ConstructJson()
@@ -35,20 +37,21 @@ QJsonObject NewAppDialog::ConstructJson()
     QHash FormData = BuildAppHash();
     QJsonObject Output = QJsonObject();
 
-    QHashIterator<QString, QVariant> iFormData(FormData);
+    QHash<QString, QVariant>::iterator iFormData(FormData.begin());
 
-    while(iFormData.hasNext())
+    while(iFormData != FormData.end())
     {
         if(iFormData.key() == "7")
         {
             Output.insert(iFormData.key(), iFormData.value().toInt());
+            iFormData++;
             continue;
         }
 
         Output.insert(iFormData.key(), iFormData.value().toString());
-    }
 
-    emit ApplicationAdded();
+        iFormData++;
+    }
 
     return Output;
 }
@@ -93,6 +96,9 @@ QHash<QString, QVariant> NewAppDialog::BuildAppHash()
     //CompanyName - Pull from CompanyName
     FormInput.insert(QString("10"), QVariant(ui->CompanyName->text()));
 
+    //TODO: Implement Input guards for form.Probably in wrong place.
+    //InputGuards(FormInput);
+
     return FormInput;
 }
 
@@ -103,6 +109,6 @@ void NewAppDialog::on_buttonBox_accepted()
 
 void NewAppDialog::on_TodayButton_clicked()
 {
-    //Set Date Applied to the current date
+    ui->ApplicationDate->setDate(QDate::currentDate());
 }
 
