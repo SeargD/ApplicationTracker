@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>NewAppDialog</class>
+ <widget class="QDialog" name="NewAppDialog">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>509</width>
+    <height>547</height>
+   </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>509</width>
+    <height>547</height>
+   </size>
+  </property>
+  <property name="windowTitle">
+   <string>New Application</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">background-color : rgb(25,25,25);
+color :  rgb(255,255,255)</string>
+  </property>
+  <layout class="QGridLayout" name="gridLayout">
+   <item row="1" column="0">
+    <layout class="QGridLayout" name="gridLayout_2">
+     <item row="3" column="0">
+      <widget class="QLabel" name="lAdLink">
+       <property name="text">
+        <string>Advert</string>
+       </property>
+       <property name="buddy">
+        <cstring>AdvertLink</cstring>
+       </property>
+      </widget>
+     </item>
+     <item row="4" column="0">
+      <widget class="QLabel" name="lDescription">
+       <property name="text">
+        <string>Job Description</string>
+       </property>
+       <property name="buddy">
+        <cstring>plainTextEdit</cstring>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="1">
+      <widget class="QDateEdit" name="ApplicationDate"/>
+     </item>
+     <item row="1" column="0">
+      <widget class="QLabel" name="lCompany">
+       <property name="text">
+        <string>Company</string>
+       </property>
+       <property name="buddy">
+        <cstring>CompanyName</cstring>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="0">
+      <widget class="QLabel" name="lTitle">
+       <property name="text">
+        <string>Job Title</string>
+       </property>
+       <property name="buddy">
+        <cstring>JobTitle</cstring>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="0">
+      <widget class="QLabel" name="lAppDate">
+       <property name="text">
+        <string>Date Applied</string>
+       </property>
+       <property name="buddy">
+        <cstring>ApplicationDate</cstring>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="2">
+      <widget class="QPushButton" name="TodayButton">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="minimumSize">
+        <size>
+         <width>65</width>
+         <height>0</height>
+        </size>
+       </property>
+       <property name="layoutDirection">
+        <enum>Qt::LeftToRight</enum>
+       </property>
+       <property name="autoFillBackground">
+        <bool>false</bool>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background-color: rgb(155,155,155);
+border:1px solid rgb(255,255,255)</string>
+       </property>
+       <property name="text">
+        <string>Today</string>
+       </property>
+       <property name="default">
+        <bool>false</bool>
+       </property>
+       <property name="flat">
+        <bool>false</bool>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="1">
+      <widget class="QLineEdit" name="CompanyName"/>
+     </item>
+     <item row="3" column="1">
+      <widget class="QLineEdit" name="AdvertLink"/>
+     </item>
+     <item row="4" column="1" colspan="2">
+      <widget class="QPlainTextEdit" name="plainTextEdit"/>
+     </item>
+     <item row="0" column="1">
+      <widget class="QLineEdit" name="JobTitle"/>
+     </item>
+    </layout>
+   </item>
+   <item row="2" column="0">
+    <widget class="QDialogButtonBox" name="buttonBox">
+     <property name="enabled">
+      <bool>true</bool>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">min-width : 65px;
+background-color: rgb(155,155,155);
+border:1px solid rgb(255,255,255)</string>
+     </property>
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+     <property name="standardButtons">
+      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+     </property>
+     <property name="centerButtons">
+      <bool>true</bool>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <tabstops>
+  <tabstop>JobTitle</tabstop>
+  <tabstop>CompanyName</tabstop>
+  <tabstop>ApplicationDate</tabstop>
+  <tabstop>TodayButton</tabstop>
+  <tabstop>AdvertLink</tabstop>
+  <tabstop>plainTextEdit</tabstop>
+ </tabstops>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>buttonBox</sender>
+   <signal>rejected()</signal>
+   <receiver>NewAppDialog</receiver>
+   <slot>reject()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>316</x>
+     <y>260</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>286</x>
+     <y>274</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>buttonBox</sender>
+   <signal>accepted()</signal>
+   <receiver>NewAppDialog</receiver>
+   <slot>accept()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>248</x>
+     <y>254</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>157</x>
+     <y>274</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+</ui>
