@@ -26,7 +26,7 @@ ApplicationTracker::~ApplicationTracker()
 
 void ApplicationTracker::on_AddApplication_clicked()
 {
-    NewAppDialog NewApp(this, &AppData);
+    NewAppDialog NewApp(this);
 
     NewApp.exec();
 }
@@ -49,7 +49,7 @@ void ApplicationTracker::ReadAppData()
 
 void ApplicationTracker::ParseAppFile(QJsonDocument& DataIn)
 {
-    //Checks if input data is valid JSON array. Displays error message if input file is invalid JSON or not array
+    //Checks if
     if(!DataIn.isArray())
     {
         QErrorMessage FileInputError(this);
@@ -59,6 +59,7 @@ void ApplicationTracker::ParseAppFile(QJsonDocument& DataIn)
     }
 
     AppData = DataIn.array();
+
 
 }
 

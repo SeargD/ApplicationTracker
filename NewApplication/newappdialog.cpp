@@ -2,16 +2,13 @@
 #include "newappdialog.h"
 #include <QJsonDocument>
 #include <QJsonObject>
-#include <QJsonArray>
 #include "ui_newappdialog.h"
 
-NewAppDialog::NewAppDialog(QWidget *parent, QJsonArray* DataIn) :
+NewAppDialog::NewAppDialog(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::NewAppDialog)
 {
     ui->setupUi(this);
-    AppData = DataIn;
-
     ui->ApplicationDate->setDate(QDate::currentDate()); //Defaults value for application to current date
 }
 
@@ -23,34 +20,16 @@ NewAppDialog::~NewAppDialog()
 void NewAppDialog::WriteToTracker()
 {
     //Insert Data from form into JSON array held in memory
-    QJsonObject ObjToInsert = ConstructJson();
-
-    AppData->insert(AppData->end(), ObjToInsert);
     //Don't write to file in this function.(maybe)
 }
 
 QJsonObject NewAppDialog::ConstructJson()
 {
     //Build JSON data from form to add to model
-    QHash FormData = BuildAppHash();
-    QJsonObject Output = QJsonObject();
+    BuildAppHash();
 
-    QHashIterator<QString, QVariant> iFormData(FormData);
 
-    while(iFormData.hasNext())
-    {
-        if(iFormData.key() == "7")
-        {
-            Output.insert(iFormData.key(), iFormData.value().toInt());
-            continue;
-        }
-
-        Output.insert(iFormData.key(), iFormData.value().toString());
-    }
-
-    emit ApplicationAdded();
-
-    return Output;
+    return QJsonObject();
 }
 
 ///Constructs a Hash of the form data. Hash Ref "/Docs/AppData(Sample Invalid JSON)
@@ -58,7 +37,7 @@ QHash<QString, QVariant> NewAppDialog::BuildAppHash()
 {
     QHash<QString, QVariant> FormInput = QHash<QString, QVariant>();
     //id - Generate new UUID for application
-    QString AppId(QUuid::createUuid().toString(QUuid::StringFormat::WithoutBraces));
+    QString AppId(QUuid::createUuid().toString());
     FormInput.insert(QString("0"), QVariant(AppId));
 
     //DateApplied - Pull from ApplicationDate
@@ -71,27 +50,11 @@ QHash<QString, QVariant> NewAppDialog::BuildAppHash()
     FormInput.insert(QString("3"), QVariant(ui->JobDescription->toPlainText()));
 
     //Advert - Pull from AdvertLink
-    FormInput.insert(QString("4"), QVariant(ui->AdvertLink->text()));
-
     //Contact - Pull from ContactName
-    FormInput.insert(QString("5"), QVariant(ui->ContactName->text()));
-
     //ContactAddress - ContactInfo
-    FormInput.insert(QString("6"), QVariant(ui->ContactInfo->text()));
-
     //AppStatus - Default set to applied
-    int AppStatus = static_cast<int>(ApplicationTrackerEnums::ApplicationStatus::Applied);
-    FormInput.insert(QString("7"), QVariant(AppStatus));
-
     //FollowUpDate - Set 1 week from today
-    QDate FollowUpDate = QDate::currentDate().addDays(7);
-    FormInput.insert(QString("8"), QVariant(FollowUpDate.toString(Qt::DateFormat::ISODate)));
-
     //LastUpdate - set to current date
-    FormInput.insert(QString("9"), QVariant(QDate::currentDate().toString(Qt::DateFormat::ISODate)));
-
-    //CompanyName - Pull from CompanyName
-    FormInput.insert(QString("10"), QVariant(ui->CompanyName->text()));
 
     return FormInput;
 }

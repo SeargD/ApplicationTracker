@@ -2,10 +2,9 @@
 #ifndef APPLICATIONTACKERENUMS_H
 #define APPLICATIONTACKERENUMS_H
 
-#include "qtypes.h"
 namespace  ApplicationTrackerEnums
 {
-enum class ApplicationStatus : quint8
+enum class ApplicationStatus
 {
     Applied,
     NoResponse,

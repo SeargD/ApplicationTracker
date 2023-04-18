@@ -1,15 +1,14 @@
 [
 {
 "0":"Generate UUID", //id
-"1":"Store application date string", //DateApplied
-"10": "Company or Agency Name" //CompanyName - Qt will output the JSON object thus as it sorts the object by keys as string, could re-index using letters if want more granular sort of keys
+"1":"Get time as int", //DateApplied
 "2":"Something Something Job Title", //JobTitle
 "3":"Plain text of job description", //JobDescription
 "4":"Link to job advert", //Advert
 "5":"Name of recruiter if available - NM", //Contact
 "6":"Email or phone or linkedin - NM", //ContactInfo
 "7": "Applied, NR(Auto set after 1 week of Applied or FollowedUp), Rejected, FollowedUp, Interview, Offer", //AppStatus
-"8":"Follow up date", //FollowUpDate
-"9":"Last Updated date " //LastUpdate
+"8":"Follow up date stored in int", //FollowUpDate
+"9":"Last Updated date as int" //LastUpdate
 }
 ]
