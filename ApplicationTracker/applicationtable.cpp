@@ -53,10 +53,6 @@ QVariant ApplicationTable::data(const QModelIndex &index, int role) const
 void ApplicationTable::InitialiseTable()
 {
 
-    for(QJsonValue ObjIn : JarrData)
-    {
-        insertRow();
-    }
 }
 
 

@@ -56,6 +56,10 @@ void ApplicationTracker::ReadAppData()
     ParseAppFile(DataIn);
 
      modelApplications = QSharedPointer<ApplicationTable>::create(this, &AppData);
+
+    ui->tApplications->setModel(modelApplications.get());
+    ui->tApplications->show();
+
 }
 
 void ApplicationTracker::ParseAppFile(QJsonDocument& DataIn)
