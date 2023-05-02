@@ -1,5 +1,6 @@
 #include <QJsonDocument>
 #include <QErrorMessage>
+#include <QStandardItemModel>
 #include "applicationtracker.h"
 #include "NewApplication/newappdialog.h"
 #include "ui_applicationtracker.h"
@@ -55,9 +56,15 @@ void ApplicationTracker::ReadAppData()
 
     ParseAppFile(DataIn);
 
-     modelApplications = QSharedPointer<ApplicationTable>::create(this, &AppData);
+    QStandardItemModel model(4,4);
+    for (int row = 0; row < model.rowCount(); ++row) {
+        for (int column = 0; column < model.columnCount(); ++column) {
+            QStandardItem *item = new QStandardItem(QString("row %0, column %1").arg(row).arg(column));
+            model.setItem(row, column, item);
+        }
+    }
 
-    ui->tApplications->setModel(modelApplications.get());
+    ui->tApplications->setModel(&model);
     ui->tApplications->show();
 
 }
