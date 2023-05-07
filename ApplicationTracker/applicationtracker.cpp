@@ -133,8 +133,13 @@ void ApplicationTracker::SetColumnHeaders()
 
 void ApplicationTracker::AddApplicationToModel()
 {
-    QJsonObject TempObject(AppData.last().toObject());
-
+    //Take last JSON object in array
+    //Build Map from Object
+    //QMap<int, QString>
+    //Use Map to initialise list of items
+    //for(QString& S: mapNewRow)
+    //Add row to item model using generated list
+    //AppDatdModel.appendRow(lisNewRow)
 }
 
 QByteArray ApplicationTracker::BuildDefaultData()
