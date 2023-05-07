@@ -3,6 +3,7 @@
 #define APPLICATIONTRACKER_H
 
 #include "applicationtable.h"
+#include <QStandardItemModel>
 #include <QMainWindow>
 #include <QFile>
 #include <filesystem>
@@ -28,11 +29,17 @@ private:
     Ui::ApplicationTracker *ui;
     void ReadAppData();
     void ParseAppFile(QJsonDocument& DataIn);
+    void InitialiseModel();
+    void SetColumnHeaders();
+    void AddApplicationToModel();
+
     QByteArray BuildDefaultData();
 
     std::filesystem::path DataFile = std::filesystem::current_path();
     QFile AppDataFile;
     QJsonArray AppData;
+    QStandardItemModel AppDataModel;
+
 
 private slots:
     void on_AddApplication_clicked();

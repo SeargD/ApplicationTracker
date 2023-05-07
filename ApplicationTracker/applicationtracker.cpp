@@ -1,4 +1,5 @@
 #include <QJsonDocument>
+#include <QJsonObject>
 #include <QErrorMessage>
 #include <QStandardItemModel>
 #include "applicationtracker.h"
@@ -27,7 +28,7 @@ ApplicationTracker::~ApplicationTracker()
 void ApplicationTracker::on_AddApplication_clicked()
 {
     NewAppDialog NewApp(this, &AppData);
-    connect(&NewApp, &NewAppDialog::ApplicationAdded, this, &ApplicationTracker::ApplicationAdded);
+    connect(&NewApp, &NewAppDialog::ApplicationAdded, this, &ApplicationTracker::ApplicationAdded, Qt::SingleShotConnection);
 
     NewApp.exec();
 }
@@ -39,6 +40,8 @@ void ApplicationTracker::ApplicationAdded()
     QJsonDocument Output(AppData);
     AppDataFile.write(Output.toJson());
     AppDataFile.close();
+
+    AddApplicationToModel();
 }
 
 void ApplicationTracker::ReadAppData()
@@ -56,15 +59,12 @@ void ApplicationTracker::ReadAppData()
 
     ParseAppFile(DataIn);
 
-    QStandardItemModel model(4,4);
-    for (int row = 0; row < model.rowCount(); ++row) {
-        for (int column = 0; column < model.columnCount(); ++column) {
-            QStandardItem *item = new QStandardItem(QString("row %0, column %1").arg(row).arg(column));
-            model.setItem(row, column, item);
-        }
-    }
+    InitialiseModel();
 
-    ui->tApplications->setModel(&model);
+    ui->tApplications->setModel(&AppDataModel);
+    ui->tApplications->hideColumn(0);
+    ui->tApplications->hideColumn(3);
+    ui->tApplications->resizeColumnsToContents();
     ui->tApplications->show();
 
 }
@@ -81,6 +81,59 @@ void ApplicationTracker::ParseAppFile(QJsonDocument& DataIn)
     }
 
     AppData = DataIn.array();
+
+}
+
+void ApplicationTracker::InitialiseModel()
+{
+    AppDataModel.setRowCount(AppData.count());
+    int NumColumns = 0;
+
+    //Check for 0 length array in JSON file. Abort initialisation to allow application to start successfully
+    if(!AppData.count()) return;
+
+    QStringList Keys(AppData[0].toObject().keys());
+
+
+    for(QString& S: Keys)
+    {
+        NumColumns++;
+    }
+
+    AppDataModel.setColumnCount(NumColumns);
+
+    SetColumnHeaders();
+
+    for (int row = 0; row < AppDataModel.rowCount(); ++row)
+    {
+        for (int column = 0; column < AppDataModel.columnCount(); ++column)
+        {
+            QJsonObject TempObject = AppData[row].toObject();
+            QJsonValue Data = TempObject[QString::number(column)];
+            QStandardItem* item = new QStandardItem(QString(Data.toString()));
+            AppDataModel.setItem(row, column, item);
+        }
+    }
+}
+
+void ApplicationTracker::SetColumnHeaders()
+{
+    AppDataModel.setHeaderData(0, Qt::Horizontal, QVariant("id"), Qt::DisplayRole);
+    AppDataModel.setHeaderData(1, Qt::Horizontal, QVariant("Date Applied"), Qt::DisplayRole);
+    AppDataModel.setHeaderData(2, Qt::Horizontal, QVariant("Job Title"), Qt::DisplayRole);
+    AppDataModel.setHeaderData(3, Qt::Horizontal, QVariant("Job Description"), Qt::DisplayRole);
+    AppDataModel.setHeaderData(4, Qt::Horizontal, QVariant("Advert"), Qt::DisplayRole);
+    AppDataModel.setHeaderData(5, Qt::Horizontal, QVariant("Contact"), Qt::DisplayRole);
+    AppDataModel.setHeaderData(6, Qt::Horizontal, QVariant("Contact Info"), Qt::DisplayRole);
+    AppDataModel.setHeaderData(7, Qt::Horizontal, QVariant("Application Status"), Qt::DisplayRole);
+    AppDataModel.setHeaderData(8, Qt::Horizontal, QVariant("Followup Date"), Qt::DisplayRole);
+    AppDataModel.setHeaderData(9, Qt::Horizontal, QVariant("Last Update"), Qt::DisplayRole);
+    AppDataModel.setHeaderData(10, Qt::Horizontal, QVariant("Company Name"), Qt::DisplayRole);
+}
+
+void ApplicationTracker::AddApplicationToModel()
+{
+    QJsonObject TempObject(AppData.last().toObject());
 
 }
 

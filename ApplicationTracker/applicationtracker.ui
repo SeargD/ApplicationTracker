@@ -27,8 +27,7 @@
   </property>
   <property name="styleSheet">
    <string notr="true">background-color : rgb(25,25,25);
-color :  rgb(255,255,255);
-QPushButton: {color: red}</string>
+color :  rgb(255,255,255);</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <property name="sizePolicy">
@@ -50,7 +49,8 @@ QPushButton: {color: red}</string>
         </property>
         <property name="styleSheet">
          <string notr="true">background-color: rgb(155,155,155);
-border:1px solid rgb(255,255,255)</string>
+border:1px solid rgb(255,255,255);
+border-radius: 4</string>
         </property>
         <property name="text">
          <string>Add New Application</string>
@@ -102,7 +102,8 @@ border:1px solid rgb(255,255,255)</string>
         </property>
         <property name="styleSheet">
          <string notr="true">background-color: rgb(155,155,155);
-border:1px solid rgb(255,255,255)</string>
+border:1px solid rgb(255,255,255);
+border-radius: 4</string>
         </property>
         <property name="text">
          <string>Edit Application</string>
@@ -120,7 +121,12 @@ border:1px solid rgb(255,255,255)</string>
        </widget>
       </item>
       <item row="1" column="0" colspan="2">
-       <widget class="QTableView" name="tApplications"/>
+       <widget class="QTableView" name="tApplications">
+        <property name="styleSheet">
+         <string notr="true">QHeaderView::section{color:white; background-color:rgb(25,25,25)}
+</string>
+        </property>
+       </widget>
       </item>
       <item row="3" column="0">
        <widget class="QLabel" name="label_2">

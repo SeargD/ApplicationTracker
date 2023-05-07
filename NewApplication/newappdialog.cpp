@@ -83,8 +83,7 @@ QHash<QString, QVariant> NewAppDialog::BuildAppHash()
     FormInput.insert(QString("6"), QVariant(ui->ContactInfo->text()));
 
     //AppStatus - Default set to applied
-    int AppStatus = static_cast<int>(ApplicationTrackerEnums::ApplicationStatus::Applied);
-    FormInput.insert(QString("7"), QVariant(AppStatus));
+    FormInput.insert(QString("7"), QVariant("0"));
 
     //FollowUpDate - Set 1 week from today
     QDate FollowUpDate = QDate::currentDate().addDays(7);
