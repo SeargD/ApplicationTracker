@@ -122,24 +122,37 @@ void ApplicationTracker::SetColumnHeaders()
     AppDataModel.setHeaderData(1, Qt::Horizontal, QVariant("Date Applied"), Qt::DisplayRole);
     AppDataModel.setHeaderData(2, Qt::Horizontal, QVariant("Job Title"), Qt::DisplayRole);
     AppDataModel.setHeaderData(3, Qt::Horizontal, QVariant("Job Description"), Qt::DisplayRole);
-    AppDataModel.setHeaderData(4, Qt::Horizontal, QVariant("Advert"), Qt::DisplayRole);
-    AppDataModel.setHeaderData(5, Qt::Horizontal, QVariant("Contact"), Qt::DisplayRole);
-    AppDataModel.setHeaderData(6, Qt::Horizontal, QVariant("Contact Info"), Qt::DisplayRole);
-    AppDataModel.setHeaderData(7, Qt::Horizontal, QVariant("Application Status"), Qt::DisplayRole);
-    AppDataModel.setHeaderData(8, Qt::Horizontal, QVariant("Followup Date"), Qt::DisplayRole);
-    AppDataModel.setHeaderData(9, Qt::Horizontal, QVariant("Last Update"), Qt::DisplayRole);
-    AppDataModel.setHeaderData(10, Qt::Horizontal, QVariant("Company Name"), Qt::DisplayRole);
+    AppDataModel.setHeaderData(4, Qt::Horizontal, QVariant("Company Name"), Qt::DisplayRole);
+    AppDataModel.setHeaderData(5, Qt::Horizontal, QVariant("Advert"), Qt::DisplayRole);
+    AppDataModel.setHeaderData(6, Qt::Horizontal, QVariant("Contact"), Qt::DisplayRole);
+    AppDataModel.setHeaderData(7, Qt::Horizontal, QVariant("Contact Info"), Qt::DisplayRole);
+    AppDataModel.setHeaderData(8, Qt::Horizontal, QVariant("Application Status"), Qt::DisplayRole);
+    AppDataModel.setHeaderData(9, Qt::Horizontal, QVariant("Followup Date"), Qt::DisplayRole);
+    AppDataModel.setHeaderData(10, Qt::Horizontal, QVariant("Last Update"), Qt::DisplayRole);
 }
 
 void ApplicationTracker::AddApplicationToModel()
 {
     //Take last JSON object in array
+    QJsonObject TempObject(AppData.last().toObject());
+
     //Build Map from Object
-    //QMap<int, QString>
+    QMap<int, QString> mapNewApp;
+    for(QString& S: TempObject.keys())
+    {
+        QString Value(TempObject[S].toString());
+        mapNewApp.insert(S.toInt(), Value);
+    }
+
     //Use Map to initialise list of items
-    //for(QString& S: mapNewRow)
+    QList<QStandardItem*> lisNewApp;
+    for(QString& S: mapNewApp)
+    {
+        QStandardItem* NewItem = new QStandardItem(S);
+        lisNewApp.append(NewItem);
+    }
     //Add row to item model using generated list
-    //AppDatdModel.appendRow(lisNewRow)
+    AppDataModel.appendRow(lisNewApp);
 }
 
 QByteArray ApplicationTracker::BuildDefaultData()

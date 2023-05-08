@@ -41,13 +41,6 @@ QJsonObject NewAppDialog::ConstructJson()
 
     while(iFormData != FormData.end())
     {
-        if(iFormData.key() == "7")
-        {
-            Output.insert(iFormData.key(), iFormData.value().toInt());
-            iFormData++;
-            continue;
-        }
-
         Output.insert(iFormData.key(), iFormData.value().toString());
 
         iFormData++;
