@@ -66,27 +66,27 @@ QHash<QString, QVariant> NewAppDialog::BuildAppHash()
     //JobDescription - Pull from JobDescription
     FormInput.insert(QString("3"), QVariant(ui->JobDescription->toPlainText()));
 
+    //CompanyName - Pull from CompanyName
+    FormInput.insert(QString("4"), QVariant(ui->CompanyName->text()));
+
     //Advert - Pull from AdvertLink
-    FormInput.insert(QString("4"), QVariant(ui->AdvertLink->text()));
+    FormInput.insert(QString("5"), QVariant(ui->AdvertLink->text()));
 
     //Contact - Pull from ContactName
-    FormInput.insert(QString("5"), QVariant(ui->ContactName->text()));
+    FormInput.insert(QString("6"), QVariant(ui->ContactName->text()));
 
     //ContactAddress - ContactInfo
-    FormInput.insert(QString("6"), QVariant(ui->ContactInfo->text()));
+    FormInput.insert(QString("7"), QVariant(ui->ContactInfo->text()));
 
     //AppStatus - Default set to applied
-    FormInput.insert(QString("7"), QVariant("0"));
+    FormInput.insert(QString("8"), QVariant("0"));
 
     //FollowUpDate - Set 1 week from today
     QDate FollowUpDate = QDate::currentDate().addDays(7);
-    FormInput.insert(QString("8"), QVariant(FollowUpDate.toString(Qt::DateFormat::ISODate)));
+    FormInput.insert(QString("9"), QVariant(FollowUpDate.toString(Qt::DateFormat::ISODate)));
 
     //LastUpdate - set to current date
-    FormInput.insert(QString("9"), QVariant(QDate::currentDate().toString(Qt::DateFormat::ISODate)));
-
-    //CompanyName - Pull from CompanyName
-    FormInput.insert(QString("10"), QVariant(ui->CompanyName->text()));
+    FormInput.insert(QString("10"), QVariant(QDate::currentDate().toString(Qt::DateFormat::ISODate)));
 
     //TODO: Implement Input guards for form.Probably in wrong place.
     //InputGuards(FormInput);

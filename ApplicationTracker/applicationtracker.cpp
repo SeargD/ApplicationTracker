@@ -14,6 +14,7 @@ ApplicationTracker::ApplicationTracker(QWidget *parent)
     ui->setupUi(this);
     DataFile.replace_filename("AppData.json");
     AppDataFile.setFileName(DataFile);
+    //InitModelView();
     //Initialise model with data from JSON file
     ReadAppData();
     //Show TableView with data initialised
@@ -30,6 +31,7 @@ void ApplicationTracker::on_AddApplication_clicked()
     NewAppDialog NewApp(this, &AppData);
     connect(&NewApp, &NewAppDialog::ApplicationAdded, this, &ApplicationTracker::ApplicationAdded, Qt::SingleShotConnection);
 
+
     NewApp.exec();
 }
 
@@ -44,8 +46,10 @@ void ApplicationTracker::ApplicationAdded()
     AddApplicationToModel();
 }
 
-void ApplicationTracker::ReadAppData()
+//Call from InitModelView()
+void ApplicationTracker::ReadAppData()//Function needs refactor. Does too much.
 {
+
     //Initialises empty JSON file if No data file exists
     if(!AppDataFile.exists())
     {
@@ -59,13 +63,18 @@ void ApplicationTracker::ReadAppData()
 
     ParseAppFile(DataIn);
 
+    //Call from InitModelView()
     InitialiseModel();
 
+    //Refactor to InitTableView.
     ui->tApplications->setModel(&AppDataModel);
     ui->tApplications->hideColumn(0);
     ui->tApplications->hideColumn(3);
-    ui->tApplications->resizeColumnsToContents();
+    ui->tApplications->setEditTriggers(QAbstractItemView::NoEditTriggers);
+    ui->tApplications->setSelectionBehavior(QAbstractItemView::SelectRows);
+    FitModelToWidth();
     ui->tApplications->show();
+
 
 }
 
@@ -153,6 +162,18 @@ void ApplicationTracker::AddApplicationToModel()
     }
     //Add row to item model using generated list
     AppDataModel.appendRow(lisNewApp);
+
+    FitModelToWidth();
+}
+
+void ApplicationTracker::FitModelToWidth()
+{
+    //Get width of widget
+    //If Total width of columns > widget, return;
+    //If Total width < widget, resize to contents
+    //Set Advert width to 120px max.
+    //Total width remains < widget, add even width to all columns to make up width
+    //Add any uneven width to last column.
 }
 
 QByteArray ApplicationTracker::BuildDefaultData()

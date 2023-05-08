@@ -32,6 +32,7 @@ private:
     void InitialiseModel();
     void SetColumnHeaders();
     void AddApplicationToModel();
+    void FitModelToWidth();
 
     QByteArray BuildDefaultData();
 
