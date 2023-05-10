@@ -2,6 +2,7 @@
 #include <QJsonObject>
 #include <QErrorMessage>
 #include <QStandardItemModel>
+#include <iostream>
 #include "applicationtracker.h"
 #include "NewApplication/newappdialog.h"
 #include "ui_applicationtracker.h"
@@ -168,8 +169,17 @@ void ApplicationTracker::AddApplicationToModel()
 
 void ApplicationTracker::FitModelToWidth()
 {
-    //Get width of widget
+    ui->tApplications->resizeColumnsToContents();
+
     //If Total width of columns > widget, return;
+    int TotalWidth = 0;
+    for (int i = 0; i < AppDataModel.columnCount(); i++)
+    {
+        TotalWidth += ui->tApplications->columnWidth(i);
+    }
+
+    std::cout << ui->tApplications->geometry().width() << std::endl;
+    std::cout << TotalWidth << std::endl;
     //If Total width < widget, resize to contents
     //Set Advert width to 120px max.
     //Total width remains < widget, add even width to all columns to make up width
