@@ -24,15 +24,19 @@ public:
     ApplicationTracker(QWidget *parent = nullptr);
     ~ApplicationTracker();
 
+    void InitTableView();
 
 private:
     Ui::ApplicationTracker *ui;
-    void ReadAppData();
     void ParseAppFile(QJsonDocument& DataIn);
     void InitialiseModel();
     void SetColumnHeaders();
     void AddApplicationToModel();
+    void ReadAppData();
+
+    void InitModelView();
     void FitModelToWidth();
+
 
     QByteArray BuildDefaultData();
 

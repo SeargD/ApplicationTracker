@@ -15,10 +15,7 @@ ApplicationTracker::ApplicationTracker(QWidget *parent)
     ui->setupUi(this);
     DataFile.replace_filename("AppData.json");
     AppDataFile.setFileName(DataFile);
-    //InitModelView();
-    //Initialise model with data from JSON file
-    ReadAppData();
-    //Show TableView with data initialised
+    InitModelView();
 }
 
 ApplicationTracker::~ApplicationTracker()
@@ -64,19 +61,23 @@ void ApplicationTracker::ReadAppData()//Function needs refactor. Does too much.
 
     ParseAppFile(DataIn);
 
-    //Call from InitModelView()
-    InitialiseModel();
+}
 
-    //Refactor to InitTableView.
+void ApplicationTracker::InitModelView()
+{
+    ReadAppData();
+    InitialiseModel();
+}
+
+void ApplicationTracker::InitTableView()
+{
     ui->tApplications->setModel(&AppDataModel);
     ui->tApplications->hideColumn(0);
     ui->tApplications->hideColumn(3);
     ui->tApplications->setEditTriggers(QAbstractItemView::NoEditTriggers);
     ui->tApplications->setSelectionBehavior(QAbstractItemView::SelectRows);
-    FitModelToWidth();
     ui->tApplications->show();
-
-
+    FitModelToWidth();
 }
 
 void ApplicationTracker::ParseAppFile(QJsonDocument& DataIn)
@@ -178,6 +179,7 @@ void ApplicationTracker::FitModelToWidth()
         TotalWidth += ui->tApplications->columnWidth(i);
     }
 
+    std::cout << ui->gridLayout->geometry().width() << std::endl;
     std::cout << ui->tApplications->geometry().width() << std::endl;
     std::cout << TotalWidth << std::endl;
     //If Total width < widget, resize to contents
