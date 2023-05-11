@@ -7,12 +7,12 @@
 #include "NewApplication/newappdialog.h"
 #include "ui_applicationtracker.h"
 
-
 ApplicationTracker::ApplicationTracker(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::ApplicationTracker)
 {
     ui->setupUi(this);
+    AppTable = ui->tApplications;
     DataFile.replace_filename("AppData.json");
     AppDataFile.setFileName(DataFile);
     InitModelView();
@@ -28,7 +28,6 @@ void ApplicationTracker::on_AddApplication_clicked()
 {
     NewAppDialog NewApp(this, &AppData);
     connect(&NewApp, &NewAppDialog::ApplicationAdded, this, &ApplicationTracker::ApplicationAdded, Qt::SingleShotConnection);
-
 
     NewApp.exec();
 }
@@ -71,12 +70,14 @@ void ApplicationTracker::InitModelView()
 
 void ApplicationTracker::InitTableView()
 {
-    ui->tApplications->setModel(&AppDataModel);
-    ui->tApplications->hideColumn(0);
-    ui->tApplications->hideColumn(3);
-    ui->tApplications->setEditTriggers(QAbstractItemView::NoEditTriggers);
-    ui->tApplications->setSelectionBehavior(QAbstractItemView::SelectRows);
-    ui->tApplications->show();
+
+    AppTable->setModel(&AppDataModel);
+    AppTable->hideColumn(0);
+    AppTable->hideColumn(3);
+    AppTable->verticalHeader()->hide();
+    AppTable->setEditTriggers(QAbstractItemView::NoEditTriggers);
+    AppTable->setSelectionBehavior(QAbstractItemView::SelectRows);
+    AppTable->show();
     FitModelToWidth();
 }
 
@@ -170,22 +171,44 @@ void ApplicationTracker::AddApplicationToModel()
 
 void ApplicationTracker::FitModelToWidth()
 {
-    ui->tApplications->resizeColumnsToContents();
+    AppTable->resizeColumnsToContents();
 
-    //If Total width of columns > widget, return;
-    int TotalWidth = 0;
-    for (int i = 0; i < AppDataModel.columnCount(); i++)
+    //Set Advert width to 120px max.
+    if(AppTable->columnWidth(5) > 120)
     {
-        TotalWidth += ui->tApplications->columnWidth(i);
+        AppTable->setColumnWidth(5, 120);
     }
 
-    std::cout << ui->gridLayout->geometry().width() << std::endl;
-    std::cout << ui->tApplications->geometry().width() << std::endl;
-    std::cout << TotalWidth << std::endl;
-    //If Total width < widget, resize to contents
-    //Set Advert width to 120px max.
-    //Total width remains < widget, add even width to all columns to make up width
-    //Add any uneven width to last column.
+
+    //If Total width of columns > widget, return;
+    int TotalWidth = GetTableWidth();
+
+    int ViewWidth = ui->tApplications->geometry().width();
+
+    if (TotalWidth > ViewWidth) return;
+
+    int Diff = ViewWidth - TotalWidth;
+
+    int PerColumn = Diff / (AppDataModel.columnCount() - 2); //-2 due to hidden columns
+
+    for(int i = 0; i < AppDataModel.columnCount(); i++)
+    {
+        if(AppTable->columnWidth(i) > 0)
+        {
+            AppTable->setColumnWidth(i, AppTable->columnWidth(i) + PerColumn);
+            TotalWidth += PerColumn;
+        }
+    }
+}
+
+int ApplicationTracker::GetTableWidth()
+{
+    int TableWidth = 0;
+    for (int i = 0; i < AppDataModel.columnCount(); i++)
+    {
+        TableWidth += ui->tApplications->columnWidth(i);
+    }
+    return TableWidth;
 }
 
 QByteArray ApplicationTracker::BuildDefaultData()

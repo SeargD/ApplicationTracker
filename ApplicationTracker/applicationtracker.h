@@ -3,6 +3,7 @@
 #define APPLICATIONTRACKER_H
 
 #include "applicationtable.h"
+#include <QTableView>
 #include <QStandardItemModel>
 #include <QMainWindow>
 #include <QFile>
@@ -36,6 +37,7 @@ private:
 
     void InitModelView();
     void FitModelToWidth();
+    int GetTableWidth();
 
 
     QByteArray BuildDefaultData();
@@ -45,6 +47,7 @@ private:
     QJsonArray AppData;
     QStandardItemModel AppDataModel;
 
+    QTableView* AppTable;
 
 private slots:
     void on_AddApplication_clicked();
