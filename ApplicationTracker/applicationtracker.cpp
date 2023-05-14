@@ -32,6 +32,11 @@ void ApplicationTracker::on_AddApplication_clicked()
     NewApp.exec();
 }
 
+void ApplicationTracker::on_EditApplication_clicked()
+{
+
+}
+
 void ApplicationTracker::ApplicationAdded()
 {
     //Write array to file with new object added
@@ -217,3 +222,5 @@ QByteArray ApplicationTracker::BuildDefaultData()
     Output += "[]";
     return Output;
 }
+
+

@@ -3,8 +3,8 @@
 "0":"Generate UUID", //id
 "1":"Store application date string", //DateApplied
 "2":"Something Something Job Title", //JobTitle
-"3": "Company or Agency Name" //CompanyName
-"4":"Plain text of job description", //JobDescription
+"3":"Plain text of job description", //JobDescription
+"4": "Company or Agency Name" //CompanyName
 "5":"Link to job advert", //Advert
 "6":"Name of recruiter if available - NM", //Contact
 "7":"Email or phone or linkedin - NM", //ContactInfo

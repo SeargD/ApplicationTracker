@@ -12,17 +12,20 @@ SOURCES += \
     ApplicationTracker/applicationtable.cpp \
     ApplicationTracker/applicationtracker.cpp \
     NewApplication/newappdialog.cpp \
+    editappdialog.cpp \
     main.cpp
 
 HEADERS += \
     ApplicationTackerEnums.h \
     ApplicationTracker/applicationtable.h \
     ApplicationTracker/applicationtracker.h \
-    NewApplication/newappdialog.h
+    NewApplication/newappdialog.h \
+    editappdialog.h
 
 FORMS += \
     ApplicationTracker/applicationtracker.ui \
-    NewApplication/newappdialog.ui
+    NewApplication/newappdialog.ui \
+    editappdialog.ui
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin

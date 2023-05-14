@@ -51,6 +51,7 @@ private:
 
 private slots:
     void on_AddApplication_clicked();
+    void on_EditApplication_clicked();
     void ApplicationAdded();
 };
 
