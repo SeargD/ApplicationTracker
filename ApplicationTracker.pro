@@ -11,21 +11,21 @@ CONFIG += c++17
 SOURCES += \
     ApplicationTracker/applicationtable.cpp \
     ApplicationTracker/applicationtracker.cpp \
+    EditApplication/editappdialog.cpp \
     NewApplication/newappdialog.cpp \
-    editappdialog.cpp \
     main.cpp
 
 HEADERS += \
     ApplicationTackerEnums.h \
     ApplicationTracker/applicationtable.h \
     ApplicationTracker/applicationtracker.h \
-    NewApplication/newappdialog.h \
-    editappdialog.h
+    EditApplication/editappdialog.h \
+    NewApplication/newappdialog.h
 
 FORMS += \
     ApplicationTracker/applicationtracker.ui \
-    NewApplication/newappdialog.ui \
-    editappdialog.ui
+    EditApplication/editappdialog.ui \
+    NewApplication/newappdialog.ui
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin

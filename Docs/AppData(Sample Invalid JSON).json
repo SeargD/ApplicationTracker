@@ -8,8 +8,10 @@
 "5":"Link to job advert", //Advert
 "6":"Name of recruiter if available - NM", //Contact
 "7":"Email or phone or linkedin - NM", //ContactInfo
-"8": "Applied, NR(Auto set after 1 week of Applied or FollowedUp), Rejected, FollowedUp, Interview, Offer", //AppStatus
+"8": "Enum: Applied, NR(Auto set after 1 week of Applied or FollowedUp), Rejected, FollowedUp, Interview, Offer", //AppStatus
 "9":"Follow up date", //FollowUpDate
 "10":"Last Updated date " //LastUpdate
+"11":"Enum: Applied, EmailSent, InterviewArranged, Interviewed, AwaitingOffer"//LastAction
+"12":"Detail of next action to be taken"//FollowUpAction
 }
 ]
