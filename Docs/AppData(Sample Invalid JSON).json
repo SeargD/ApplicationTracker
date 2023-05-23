@@ -15,3 +15,23 @@
 "12":"Detail of next action to be taken"//FollowUpAction
 }
 ]
+
+Static Fields
+Date Applied
+Job Title
+Company Name
+Advert
+
+
+Dynamic Fields
+Contact
+Contact Info
+Application Status
+Follow-up Date
+Follow-up Action
+
+
+Hidden
+Job Description
+id
+Last Update - To be dynamically updated on submission of form

@@ -5,6 +5,7 @@
 #include <iostream>
 #include "applicationtracker.h"
 #include "NewApplication/newappdialog.h"
+#include "EditApplication/editappdialog.h"
 #include "ui_applicationtracker.h"
 
 ApplicationTracker::ApplicationTracker(QWidget *parent)
@@ -34,7 +35,14 @@ void ApplicationTracker::on_AddApplication_clicked()
 
 void ApplicationTracker::on_EditApplication_clicked()
 {
-
+    QItemSelectionModel* Selected = ui->tApplications->selectionModel();
+    if(!Selected->hasSelection()) return;
+    int RowSelected = Selected->selectedRows()[0].row();
+    QList<QStandardItem*> lisToPass = AppDataModel.takeRow(RowSelected);
+    if(lisToPass.empty()) return;
+    EditAppDialog EditApp(this,lisToPass);
+    connect(&EditApp, &EditAppDialog::ApplicationEdited, this, &ApplicationTracker::ApplicationEdited);
+    EditApp.exec();
 }
 
 void ApplicationTracker::ApplicationAdded()
@@ -46,6 +54,11 @@ void ApplicationTracker::ApplicationAdded()
     AppDataFile.close();
 
     AddApplicationToModel();
+}
+
+void ApplicationTracker::ApplicationEdited()
+{
+
 }
 
 //Call from InitModelView()
@@ -82,6 +95,7 @@ void ApplicationTracker::InitTableView()
     AppTable->verticalHeader()->hide();
     AppTable->setEditTriggers(QAbstractItemView::NoEditTriggers);
     AppTable->setSelectionBehavior(QAbstractItemView::SelectRows);
+    AppTable->setSizeIncrement(QSizePolicy::Minimum, QSizePolicy::Minimum);
     AppTable->show();
     FitModelToWidth();
 }
@@ -146,6 +160,8 @@ void ApplicationTracker::SetColumnHeaders()
     AppDataModel.setHeaderData(8, Qt::Horizontal, QVariant("Application Status"), Qt::DisplayRole);
     AppDataModel.setHeaderData(9, Qt::Horizontal, QVariant("Followup Date"), Qt::DisplayRole);
     AppDataModel.setHeaderData(10, Qt::Horizontal, QVariant("Last Update"), Qt::DisplayRole);
+    AppDataModel.setHeaderData(11, Qt::Horizontal, QVariant("Last Action"), Qt::DisplayRole);
+    AppDataModel.setHeaderData(12, Qt::Horizontal, QVariant("Follow-up Action"), Qt::DisplayRole);
 }
 
 void ApplicationTracker::AddApplicationToModel()
@@ -178,12 +194,11 @@ void ApplicationTracker::FitModelToWidth()
 {
     AppTable->resizeColumnsToContents();
 
-    //Set Advert width to 120px max.
-    if(AppTable->columnWidth(5) > 120)
+    //Set Advert width to 120px max. - Doesn't work
+    if(AppTable->columnWidth(5) > 240)
     {
-        AppTable->setColumnWidth(5, 120);
+        AppTable->setColumnWidth(5, 240);
     }
-
 
     //If Total width of columns > widget, return;
     int TotalWidth = GetTableWidth();
@@ -200,8 +215,10 @@ void ApplicationTracker::FitModelToWidth()
     {
         if(AppTable->columnWidth(i) > 0)
         {
+            if(i == 5 ) continue;//Skips resizing column 5
             AppTable->setColumnWidth(i, AppTable->columnWidth(i) + PerColumn);
             TotalWidth += PerColumn;
+            if(TotalWidth > ViewWidth - PerColumn) return;
         }
     }
 }
@@ -214,6 +231,12 @@ int ApplicationTracker::GetTableWidth()
         TableWidth += ui->tApplications->columnWidth(i);
     }
     return TableWidth;
+}
+
+void ApplicationTracker::resizeEvent(QResizeEvent* event)
+{
+    QWidget::resizeEvent(event);
+    FitModelToWidth();
 }
 
 QByteArray ApplicationTracker::BuildDefaultData()

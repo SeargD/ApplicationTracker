@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>500</width>
-    <height>429</height>
+    <height>579</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -29,65 +29,22 @@ color :  rgb(255,255,255)</string>
      <x>10</x>
      <y>9</y>
      <width>481</width>
-     <height>411</height>
+     <height>561</height>
     </rect>
    </property>
    <layout class="QGridLayout" name="gridLayout">
-    <item row="3" column="1">
-     <widget class="QLineEdit" name="AdvertLink">
-      <property name="readOnly">
-       <bool>true</bool>
+    <item row="10" column="2">
+     <spacer name="horizontalSpacer_2">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
       </property>
-     </widget>
-    </item>
-    <item row="7" column="0">
-     <widget class="QLabel" name="lFollowUpDate">
-      <property name="text">
-       <string>Follow-up Date</string>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>40</width>
+        <height>20</height>
+       </size>
       </property>
-     </widget>
-    </item>
-    <item row="4" column="0">
-     <widget class="QLabel" name="lContactName">
-      <property name="text">
-       <string>Contact Name</string>
-      </property>
-     </widget>
-    </item>
-    <item row="1" column="1">
-     <widget class="QLineEdit" name="JobTitle">
-      <property name="readOnly">
-       <bool>true</bool>
-      </property>
-     </widget>
-    </item>
-    <item row="6" column="0">
-     <widget class="QLabel" name="lApplicatiopnStatus">
-      <property name="text">
-       <string>Application Status</string>
-      </property>
-     </widget>
-    </item>
-    <item row="5" column="0">
-     <widget class="QLabel" name="lContactInfo">
-      <property name="text">
-       <string>Contact Info</string>
-      </property>
-     </widget>
-    </item>
-    <item row="3" column="0">
-     <widget class="QLabel" name="lAdvert">
-      <property name="text">
-       <string>Advert</string>
-      </property>
-     </widget>
-    </item>
-    <item row="0" column="0">
-     <widget class="QLabel" name="lDateApplied">
-      <property name="text">
-       <string>Date Applied</string>
-      </property>
-     </widget>
+     </spacer>
     </item>
     <item row="2" column="0">
      <widget class="QLabel" name="lCompanyName">
@@ -96,21 +53,31 @@ color :  rgb(255,255,255)</string>
       </property>
      </widget>
     </item>
-    <item row="0" column="1">
-     <widget class="QLineEdit" name="DateApplied">
-      <property name="minimumSize">
-       <size>
-        <width>120</width>
-        <height>0</height>
-       </size>
-      </property>
-      <property name="readOnly">
-       <bool>true</bool>
+    <item row="8" column="0">
+     <widget class="QLabel" name="lLastAction">
+      <property name="text">
+       <string>Last Action</string>
       </property>
      </widget>
     </item>
-    <item row="9" column="0" colspan="2">
+    <item row="10" column="0">
+     <spacer name="horizontalSpacer">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>40</width>
+        <height>20</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+    <item row="10" column="1">
      <widget class="QDialogButtonBox" name="buttonBox">
+      <property name="cursor">
+       <cursorShape>PointingHandCursor</cursorShape>
+      </property>
       <property name="styleSheet">
        <string notr="true">min-width : 65px;
 background-color: rgb(155,155,155);
@@ -128,6 +95,34 @@ border-radius: 4</string>
       </property>
      </widget>
     </item>
+    <item row="4" column="0">
+     <widget class="QLabel" name="lContactName">
+      <property name="text">
+       <string>Contact Name</string>
+      </property>
+     </widget>
+    </item>
+    <item row="6" column="0">
+     <widget class="QLabel" name="lApplicatiopnStatus">
+      <property name="text">
+       <string>Application Status</string>
+      </property>
+     </widget>
+    </item>
+    <item row="7" column="0">
+     <widget class="QLabel" name="lFollowUpDate">
+      <property name="text">
+       <string>Follow-up Date</string>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="0">
+     <widget class="QLabel" name="lDateApplied">
+      <property name="text">
+       <string>Date Applied</string>
+      </property>
+     </widget>
+    </item>
     <item row="1" column="0">
      <widget class="QLabel" name="lJobTitle">
       <property name="text">
@@ -135,34 +130,133 @@ border-radius: 4</string>
       </property>
      </widget>
     </item>
-    <item row="2" column="1">
-     <widget class="QLineEdit" name="CompanyName">
-      <property name="readOnly">
-       <bool>true</bool>
-      </property>
-     </widget>
-    </item>
-    <item row="8" column="0">
+    <item row="9" column="0">
      <widget class="QLabel" name="lFollowUpAction">
       <property name="text">
        <string>Follow-up Action</string>
       </property>
      </widget>
     </item>
-    <item row="4" column="1">
-     <widget class="QLineEdit" name="ContactName"/>
+    <item row="3" column="0">
+     <widget class="QLabel" name="lAdvert">
+      <property name="text">
+       <string>Advert</string>
+      </property>
+     </widget>
     </item>
-    <item row="5" column="1">
-     <widget class="QLineEdit" name="ContactInfo"/>
+    <item row="5" column="0">
+     <widget class="QLabel" name="lContactInfo">
+      <property name="text">
+       <string>Contact Info</string>
+      </property>
+     </widget>
     </item>
-    <item row="6" column="1">
-     <widget class="QLineEdit" name="ApplicationStatus"/>
+    <item row="9" column="1" colspan="2">
+     <widget class="QComboBox" name="FollowUpAction">
+      <property name="styleSheet">
+       <string notr="true">border:1px solid rgb(255,255,255);
+border-radius: 4</string>
+      </property>
+      <property name="editable">
+       <bool>true</bool>
+      </property>
+     </widget>
     </item>
-    <item row="7" column="1">
-     <widget class="QLineEdit" name="FollowUpDate"/>
+    <item row="8" column="1" colspan="2">
+     <widget class="QLineEdit" name="LastAction">
+      <property name="styleSheet">
+       <string notr="true">border:1px solid rgb(255,255,255);
+border-radius: 4</string>
+      </property>
+      <property name="readOnly">
+       <bool>true</bool>
+      </property>
+     </widget>
     </item>
-    <item row="8" column="1">
-     <widget class="QLineEdit" name="FollowUpAction"/>
+    <item row="7" column="1" colspan="2">
+     <widget class="QDateEdit" name="FollowUpDate">
+      <property name="styleSheet">
+       <string notr="true">border:1px solid rgb(255,255,255);
+border-radius: 4</string>
+      </property>
+     </widget>
+    </item>
+    <item row="6" column="1" colspan="2">
+     <widget class="QComboBox" name="ApplicationStatus">
+      <property name="styleSheet">
+       <string notr="true">border:1px solid rgb(255,255,255);
+border-radius: 4</string>
+      </property>
+      <property name="editable">
+       <bool>true</bool>
+      </property>
+     </widget>
+    </item>
+    <item row="5" column="1" colspan="2">
+     <widget class="QLineEdit" name="ContactInfo">
+      <property name="styleSheet">
+       <string notr="true">border:1px solid rgb(255,255,255);
+border-radius: 4</string>
+      </property>
+     </widget>
+    </item>
+    <item row="4" column="1" colspan="2">
+     <widget class="QLineEdit" name="ContactName">
+      <property name="styleSheet">
+       <string notr="true">border:1px solid rgb(255,255,255);
+border-radius: 4</string>
+      </property>
+     </widget>
+    </item>
+    <item row="3" column="1" colspan="2">
+     <widget class="QLineEdit" name="AdvertLink">
+      <property name="styleSheet">
+       <string notr="true">border:1px solid rgb(255,255,255);
+border-radius: 4</string>
+      </property>
+      <property name="readOnly">
+       <bool>true</bool>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="1" colspan="2">
+     <widget class="QLineEdit" name="CompanyName">
+      <property name="styleSheet">
+       <string notr="true">border:1px solid rgb(255,255,255);
+border-radius: 4</string>
+      </property>
+      <property name="readOnly">
+       <bool>true</bool>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="1" colspan="2">
+     <widget class="QLineEdit" name="JobTitle">
+      <property name="styleSheet">
+       <string notr="true">border:1px solid rgb(255,255,255);
+border-radius: 4</string>
+      </property>
+      <property name="readOnly">
+       <bool>true</bool>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="1" colspan="2">
+     <widget class="QLineEdit" name="DateApplied">
+      <property name="minimumSize">
+       <size>
+        <width>120</width>
+        <height>0</height>
+       </size>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">border:1px solid rgb(255,255,255);
+border-radius: 4</string>
+      </property>
+      <property name="readOnly">
+       <bool>true</bool>
+      </property>
+     </widget>
     </item>
    </layout>
   </widget>

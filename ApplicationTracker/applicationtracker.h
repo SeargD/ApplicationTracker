@@ -27,6 +27,9 @@ public:
 
     void InitTableView();
 
+protected:
+    virtual void resizeEvent(QResizeEvent* event);
+
 private:
     Ui::ApplicationTracker *ui;
     void ParseAppFile(QJsonDocument& DataIn);
@@ -53,6 +56,7 @@ private slots:
     void on_AddApplication_clicked();
     void on_EditApplication_clicked();
     void ApplicationAdded();
+    void ApplicationEdited();
 };
 
 #endif // APPLICATIONTRACKER_H
