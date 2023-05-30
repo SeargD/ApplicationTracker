@@ -56,15 +56,18 @@ void ApplicationTracker::ApplicationAdded()
     AddApplicationToModel();
 }
 
-void ApplicationTracker::ApplicationEdited()
+void ApplicationTracker::ApplicationEdited(QList<QStandardItem*> EditRow)
 {
-
+    //Add List to model
+    AppDataModel.appendRow(EditRow);
+    //Output edited model to file
+    //Convert list to JSON
+    //Match edited application to JSON file
+    //
 }
 
-//Call from InitModelView()
-void ApplicationTracker::ReadAppData()//Function needs refactor. Does too much.
+void ApplicationTracker::ReadAppData()
 {
-
     //Initialises empty JSON file if No data file exists
     if(!AppDataFile.exists())
     {
@@ -77,7 +80,6 @@ void ApplicationTracker::ReadAppData()//Function needs refactor. Does too much.
     AppDataFile.close();
 
     ParseAppFile(DataIn);
-
 }
 
 void ApplicationTracker::InitModelView()
@@ -88,7 +90,6 @@ void ApplicationTracker::InitModelView()
 
 void ApplicationTracker::InitTableView()
 {
-
     AppTable->setModel(&AppDataModel);
     AppTable->hideColumn(0);
     AppTable->hideColumn(3);
@@ -112,7 +113,6 @@ void ApplicationTracker::ParseAppFile(QJsonDocument& DataIn)
     }
 
     AppData = DataIn.array();
-
 }
 
 void ApplicationTracker::InitialiseModel()
@@ -245,5 +245,3 @@ QByteArray ApplicationTracker::BuildDefaultData()
     Output += "[]";
     return Output;
 }
-
-

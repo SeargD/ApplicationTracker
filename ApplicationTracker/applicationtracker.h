@@ -56,7 +56,7 @@ private slots:
     void on_AddApplication_clicked();
     void on_EditApplication_clicked();
     void ApplicationAdded();
-    void ApplicationEdited();
+    void ApplicationEdited(QList<QStandardItem*> EditRow);
 };
 
 #endif // APPLICATIONTRACKER_H

@@ -19,12 +19,11 @@ public:
 private:
     Ui::EditAppDialog *ui;
     QList<QStandardItem*> DataIn;
+    QList<QStandardItem*> DataOut;
     void InitialiseFields();
     void InitialiseStatusCombo();
     void InitialiseActionCombo();
-    QString ReadAppStatus(int AppStatus);
-    QString ReadAction(int Action);
-    //OutputFunction - QList<QStandardItyem*>
+    void SetDataOut();
 
 signals:
     void ApplicationEdited(QList<QStandardItem*> DataOut);

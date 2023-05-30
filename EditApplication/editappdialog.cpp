@@ -27,9 +27,9 @@ void EditAppDialog::InitialiseFields()
     ui->AdvertLink->setText(DataIn[5]->text());
     ui->ContactName->setText(DataIn[6]->text());
     ui->ContactInfo->setText(DataIn[7]->text());
-    ui->ApplicationStatus->setCurrentText(ReadAppStatus(DataIn[8]->text().toInt()));
+    ui->ApplicationStatus->setCurrentText(ApplicationTrackerEnums::ReadAppStatus(DataIn[8]->text().toInt()));
     ui->FollowUpDate->setDate(QDate::fromString(DataIn[9]->text(), Qt::DateFormat::ISODate));
-    ui->LastAction->setText(ReadAction(DataIn[11]->text().toInt()));
+    ui->LastAction->setText(ApplicationTrackerEnums::ReadAction(DataIn[11]->text().toInt()));
 }
 
 void EditAppDialog::InitialiseStatusCombo()
@@ -38,7 +38,7 @@ void EditAppDialog::InitialiseStatusCombo()
     //Making Combo dynamically scale for additional options would likely be over-engineering solution
     for(int i = 0; i <= 5; i++)
     {
-        ui->ApplicationStatus->insertItem(i, ReadAppStatus(i), i);
+        ui->ApplicationStatus->insertItem(i, ApplicationTrackerEnums::ReadAppStatus(i), i);
     }
 }
 
@@ -46,57 +46,40 @@ void EditAppDialog::InitialiseActionCombo()
 {
     for(int i = 0; i <= 4; i++)
     {
-        ui->FollowUpAction->insertItem(i, ReadAction(i), i);
+        ui->FollowUpAction->insertItem(i, ApplicationTrackerEnums::ReadAction(i), i);
     }
 }
 
-using namespace ApplicationTrackerEnums;
-QString EditAppDialog::ReadAppStatus(int AppStatus)
+void EditAppDialog::SetDataOut()
 {
-    switch(AppStatus)
-    {
-    case ApplicationStatus::Applied:
-        return QString("Applied");
-    case ApplicationStatus::NoResponse:
-        return QString("No Response");
-    case ApplicationStatus::Rejected:
-        return QString("Rejected");
-    case ApplicationStatus::FollowedUp:
-        return QString("Followed Up");
-    case ApplicationStatus::Interview:
-        return QString("Interview");
-    case ApplicationStatus::Offer:
-        return QString("Offer");
-    default:
-        return "";
-    }
-}
-
-QString EditAppDialog::ReadAction(int Action)
-{
-    switch(Action)
-    {
-    case Actions::EmailRecruiter:
-        return QString("Email Recruiter");
-    case Actions::ArrangeInterview:
-        return QString("Arrange Interview");
-    case Actions::AttendInterview:
-        return QString("Attend Interview");
-    case Actions::Wait:
-        return QString("Wait");
-    case Actions::ObtainFeedback:
-        return QString("Obtain Feedback");
-    default:
-        return "";
-    }
+    //Static variables don't need to be pulled from ui as can not be updated in form
+    DataOut.append(DataIn[0]);//Copy id from DataIn
+    DataOut.append(DataIn[1]);//Copy DateApplied
+    DataOut.append(DataIn[2]);//Copy JobTitle
+    DataOut.append(DataIn[3]);//Copy JobDescription
+    DataOut.append(DataIn[4]);//Copy CompanyName
+    DataOut.append(DataIn[5]);//Copy Advert
+    QStandardItem* ContactName = new QStandardItem(ui->ContactName->text());
+    DataOut.append(ContactName);
+    QStandardItem* ContactInfo = new QStandardItem(ui->ContactInfo->text());
+    DataOut.append(ContactInfo);
+    QStandardItem* ApplicationStatus = new QStandardItem(ui->ApplicationStatus->currentIndex());
+    DataOut.append(ApplicationStatus);
+    QStandardItem* FollowUpDate = new QStandardItem(ui->FollowUpDate->date().toString(Qt::ISODate));
+    DataOut.append(FollowUpDate);
+    QStandardItem* LastUpdate = new QStandardItem(QDate::currentDate().toString(Qt::ISODate));
+    DataOut.append(LastUpdate);
+    DataOut.append(DataIn[11]);//Copy old FollowUp to become LastAction
+    QStandardItem* FollowUpAction = new QStandardItem(ui->FollowUpAction->currentIndex());
+    DataOut.append(FollowUpAction);
 }
 
 void EditAppDialog::on_buttonBox_accepted()
 {
     //Construct output pointer list to return to model
+    SetDataOut();
     //Signal output with list
-    //Add List to model (MainWindow)
-    //Output edited model to file
+    emit ApplicationEdited(DataOut);
 }
 
 
