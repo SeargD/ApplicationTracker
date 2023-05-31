@@ -27,6 +27,8 @@ private:
 
 signals:
     void ApplicationEdited(QList<QStandardItem*> DataOut);
+    void EditDiscarded(QList<QStandardItem*> DataOut);
+
 private slots:
     void on_buttonBox_accepted();
     void on_buttonBox_rejected();

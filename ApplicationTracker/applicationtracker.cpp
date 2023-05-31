@@ -42,17 +42,14 @@ void ApplicationTracker::on_EditApplication_clicked()
     if(lisToPass.empty()) return;
     EditAppDialog EditApp(this,lisToPass);
     connect(&EditApp, &EditAppDialog::ApplicationEdited, this, &ApplicationTracker::ApplicationEdited);
+    connect(&EditApp, &EditAppDialog::EditDiscarded, this, &ApplicationTracker::EditDiscarded);
     EditApp.exec();
 }
 
 void ApplicationTracker::ApplicationAdded()
 {
     //Write array to file with new object added
-    AppDataFile.open(QIODevice::WriteOnly);
-    QJsonDocument Output(AppData);
-    AppDataFile.write(Output.toJson());
-    AppDataFile.close();
-
+    WriteJSON();
     AddApplicationToModel();
 }
 
@@ -60,10 +57,37 @@ void ApplicationTracker::ApplicationEdited(QList<QStandardItem*> EditRow)
 {
     //Add List to model
     AppDataModel.appendRow(EditRow);
-    //Output edited model to file
     //Convert list to JSON
-    //Match edited application to JSON file
-    //
+    QJsonObject OutputObject = QJsonObject();
+    for (int i = 0; i < EditRow.count(); i++)
+    {
+        QJsonValue Data = EditRow[i]->data(Qt::DisplayRole).toString();
+        OutputObject.insert(QString::number(i), Data);
+    }
+    QJsonArray::iterator itAppData = AppData.begin();
+    while (itAppData != AppData.end())
+    {
+        //Match edited application to JSON file
+        if (itAppData->toObject()["0"] == OutputObject["0"])
+        {
+            //Replace JSON old object with new object
+            for(QString& Key: OutputObject.keys())
+            {
+                QJsonValueRef Temp(itAppData->toObject()[Key]);
+                Temp = OutputObject[Key];
+            }
+        }
+
+        itAppData++;
+    }
+
+    WriteJSON();
+}
+
+void ApplicationTracker::EditDiscarded(QList<QStandardItem*> EditRow)
+{
+    AppDataModel.appendRow(EditRow);
+    //File Write not necessary as data in model unchanged
 }
 
 void ApplicationTracker::ReadAppData()
@@ -82,10 +106,23 @@ void ApplicationTracker::ReadAppData()
     ParseAppFile(DataIn);
 }
 
+void ApplicationTracker::WriteJSON()
+{
+    AppDataFile.open(QIODevice::WriteOnly);
+    QJsonDocument Output(AppData);
+    AppDataFile.write(Output.toJson());
+    AppDataFile.close();
+}
+
 void ApplicationTracker::InitModelView()
 {
     ReadAppData();
     InitialiseModel();
+}
+
+void ApplicationTracker::ParseActionStatus()
+{
+
 }
 
 void ApplicationTracker::InitTableView()

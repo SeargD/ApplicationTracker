@@ -37,8 +37,10 @@ private:
     void SetColumnHeaders();
     void AddApplicationToModel();
     void ReadAppData();
+    void WriteJSON();
 
     void InitModelView();
+    void ParseActionStatus();
     void FitModelToWidth();
     int GetTableWidth();
 
@@ -57,6 +59,7 @@ private slots:
     void on_EditApplication_clicked();
     void ApplicationAdded();
     void ApplicationEdited(QList<QStandardItem*> EditRow);
+    void EditDiscarded(QList<QStandardItem*> EditRow);
 };
 
 #endif // APPLICATIONTRACKER_H

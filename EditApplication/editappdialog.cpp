@@ -27,9 +27,9 @@ void EditAppDialog::InitialiseFields()
     ui->AdvertLink->setText(DataIn[5]->text());
     ui->ContactName->setText(DataIn[6]->text());
     ui->ContactInfo->setText(DataIn[7]->text());
-    ui->ApplicationStatus->setCurrentText(ApplicationTrackerEnums::ReadAppStatus(DataIn[8]->text().toInt()));
+    ui->ApplicationStatus->setCurrentText(ApplicationTrackerEnums::ReadAppStatus(DataIn[8]->data().toInt()));
     ui->FollowUpDate->setDate(QDate::fromString(DataIn[9]->text(), Qt::DateFormat::ISODate));
-    ui->LastAction->setText(ApplicationTrackerEnums::ReadAction(DataIn[11]->text().toInt()));
+    ui->LastAction->setText(ApplicationTrackerEnums::ReadAction(DataIn[11]->data().toInt()));
 }
 
 void EditAppDialog::InitialiseStatusCombo()
@@ -63,14 +63,14 @@ void EditAppDialog::SetDataOut()
     DataOut.append(ContactName);
     QStandardItem* ContactInfo = new QStandardItem(ui->ContactInfo->text());
     DataOut.append(ContactInfo);
-    QStandardItem* ApplicationStatus = new QStandardItem(ui->ApplicationStatus->currentIndex());
+    QStandardItem* ApplicationStatus = new QStandardItem(QString::number(ui->ApplicationStatus->currentIndex()));
     DataOut.append(ApplicationStatus);
     QStandardItem* FollowUpDate = new QStandardItem(ui->FollowUpDate->date().toString(Qt::ISODate));
     DataOut.append(FollowUpDate);
     QStandardItem* LastUpdate = new QStandardItem(QDate::currentDate().toString(Qt::ISODate));
     DataOut.append(LastUpdate);
     DataOut.append(DataIn[11]);//Copy old FollowUp to become LastAction
-    QStandardItem* FollowUpAction = new QStandardItem(ui->FollowUpAction->currentIndex());
+    QStandardItem* FollowUpAction = new QStandardItem(QString::number(ui->FollowUpAction->currentIndex()));
     DataOut.append(FollowUpAction);
 }
 
@@ -85,8 +85,6 @@ void EditAppDialog::on_buttonBox_accepted()
 
 void EditAppDialog::on_buttonBox_rejected()
 {
-    //Signal return DataIn to MainWindow with no edits
-    //Add DataIn back to model
-    //Unnecessary to change file
+    emit EditDiscarded(DataIn);
 }
 
