@@ -4,6 +4,7 @@
 #include <QStandardItemModel>
 #include <iostream>
 #include "applicationtracker.h"
+#include "ApplicationTackerEnums.h"
 #include "NewApplication/newappdialog.h"
 #include "EditApplication/editappdialog.h"
 #include "ui_applicationtracker.h"
@@ -82,6 +83,7 @@ void ApplicationTracker::ApplicationEdited(QList<QStandardItem*> EditRow)
     }
 
     WriteJSON();
+    ParseActionStatus();
 }
 
 void ApplicationTracker::EditDiscarded(QList<QStandardItem*> EditRow)
@@ -122,7 +124,24 @@ void ApplicationTracker::InitModelView()
 
 void ApplicationTracker::ParseActionStatus()
 {
+    using namespace ApplicationTrackerEnums;
+    for(int i = 0; i < AppDataModel.rowCount(); i++)
+    {
+        QStandardItem* ReadItem = AppDataModel.item(i, 8);
+        ReadItem->setText(ReadAppStatus(ReadItem->data().toInt()));
+    }
 
+    for(int i = 0; i < AppDataModel.rowCount(); i++)
+    {
+        QStandardItem* ReadItem = AppDataModel.item(i, 11);
+        ReadItem->setText(ReadAction(ReadItem->data().toInt()));
+    }
+
+    for(int i = 0; i < AppDataModel.rowCount(); i++)
+    {
+        QStandardItem* ReadItem = AppDataModel.item(i, 12);
+        ReadItem->setText(ReadAction(ReadItem->data().toInt()));
+    }
 }
 
 void ApplicationTracker::InitTableView()
@@ -182,6 +201,8 @@ void ApplicationTracker::InitialiseModel()
             AppDataModel.setItem(row, column, item);
         }
     }
+
+    ParseActionStatus();
 }
 
 void ApplicationTracker::SetColumnHeaders()
@@ -225,6 +246,7 @@ void ApplicationTracker::AddApplicationToModel()
     AppDataModel.appendRow(lisNewApp);
 
     FitModelToWidth();
+    ParseActionStatus();
 }
 
 void ApplicationTracker::FitModelToWidth()
