@@ -37,6 +37,7 @@ private:
     void AddApplicationToModel();
     void ReadAppData();
     void WriteJSON();
+    void RemoveApplication(QItemSelectionModel* Selected);
 
     void InitModelView();
     void ParseActionStatus();

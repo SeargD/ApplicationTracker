@@ -54,6 +54,8 @@ void ApplicationTracker::on_DeleteApp_clicked()
     if(!Selected->hasSelection()) return;
 
     if(!ConfirmDelete()) return;
+
+    RemoveApplication(Selected);
 }
 
 void ApplicationTracker::ApplicationAdded()
@@ -123,6 +125,29 @@ void ApplicationTracker::WriteJSON()
     QJsonDocument Output(AppData);
     AppDataFile.write(Output.toJson());
     AppDataFile.close();
+}
+
+void ApplicationTracker::RemoveApplication(QItemSelectionModel* Selected)
+{
+
+    for(auto& index:  Selected->selectedRows(0))
+    {
+        QString RemovalId(index.data().toString());
+
+        for(int i = 0; i < AppData.count(); i++)
+        {
+            if(RemovalId == AppData[i].toObject()["0"].toString())
+            {
+                //Remove from memory
+                AppData.removeAt(i);
+                break;
+            }
+        }
+        //Remove from model
+        AppDataModel.removeRow(index.row());
+    }
+    //Write to file
+    WriteJSON();
 }
 
 void ApplicationTracker::InitModelView()
@@ -307,7 +332,15 @@ bool ApplicationTracker::ConfirmDelete()
     DelConf.setText("Are you sure you wish to delete?");
     DelConf.setInformativeText("Deleting an application is permanent and can not be reversed.");
     DelConf.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
-    return true;
+    switch(DelConf.exec())
+    {
+    case (QMessageBox::Yes):
+        return true;
+    case (QMessageBox::No):
+        return false;
+    }
+
+    return false;
 }
 
 void ApplicationTracker::resizeEvent(QResizeEvent* event)
@@ -320,5 +353,5 @@ QByteArray ApplicationTracker::BuildDefaultData()
 {
     QByteArray Output = "";
     Output += "[]";
-    return Output;  
+    return Output;
 }
