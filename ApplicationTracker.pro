@@ -9,16 +9,16 @@ CONFIG += c++17
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-    ApplicationTracker/applicationtable.cpp \
     ApplicationTracker/applicationtracker.cpp \
+    ApplicationTracker/currentapplication.cpp \
     EditApplication/editappdialog.cpp \
     NewApplication/newappdialog.cpp \
     main.cpp
 
 HEADERS += \
     ApplicationTackerEnums.h \
-    ApplicationTracker/applicationtable.h \
     ApplicationTracker/applicationtracker.h \
+    ApplicationTracker/currentapplication.h \
     EditApplication/editappdialog.h \
     NewApplication/newappdialog.h
 

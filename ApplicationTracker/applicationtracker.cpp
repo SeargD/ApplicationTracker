@@ -1,6 +1,7 @@
 #include <QJsonDocument>
 #include <QJsonObject>
 #include <QErrorMessage>
+#include <QMessageBox>
 #include <QStandardItemModel>
 #include <iostream>
 #include "applicationtracker.h"
@@ -45,6 +46,14 @@ void ApplicationTracker::on_EditApplication_clicked()
     connect(&EditApp, &EditAppDialog::ApplicationEdited, this, &ApplicationTracker::ApplicationEdited);
     connect(&EditApp, &EditAppDialog::EditDiscarded, this, &ApplicationTracker::EditDiscarded);
     EditApp.exec();
+}
+
+void ApplicationTracker::on_DeleteApp_clicked()
+{
+    QItemSelectionModel* Selected = ui->tApplications->selectionModel();
+    if(!Selected->hasSelection()) return;
+
+    if(!ConfirmDelete()) return;
 }
 
 void ApplicationTracker::ApplicationAdded()
@@ -292,6 +301,15 @@ int ApplicationTracker::GetTableWidth()
     return TableWidth;
 }
 
+bool ApplicationTracker::ConfirmDelete()
+{
+    QMessageBox DelConf;
+    DelConf.setText("Are you sure you wish to delete?");
+    DelConf.setInformativeText("Deleting an application is permanent and can not be reversed.");
+    DelConf.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
+    return true;
+}
+
 void ApplicationTracker::resizeEvent(QResizeEvent* event)
 {
     QWidget::resizeEvent(event);
@@ -302,5 +320,5 @@ QByteArray ApplicationTracker::BuildDefaultData()
 {
     QByteArray Output = "";
     Output += "[]";
-    return Output;
+    return Output;  
 }

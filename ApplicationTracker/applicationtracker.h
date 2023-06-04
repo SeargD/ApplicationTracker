@@ -2,7 +2,6 @@
 #ifndef APPLICATIONTRACKER_H
 #define APPLICATIONTRACKER_H
 
-#include "applicationtable.h"
 #include <QTableView>
 #include <QStandardItemModel>
 #include <QMainWindow>
@@ -44,6 +43,7 @@ private:
     void FitModelToWidth();
     int GetTableWidth();
 
+    bool ConfirmDelete();
 
     QByteArray BuildDefaultData();
 
@@ -60,6 +60,7 @@ private slots:
     void ApplicationAdded();
     void ApplicationEdited(QList<QStandardItem*> EditRow);
     void EditDiscarded(QList<QStandardItem*> EditRow);
+    void on_DeleteApp_clicked();
 };
 
 #endif // APPLICATIONTRACKER_H
