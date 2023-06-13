@@ -179,6 +179,8 @@ border-radius: 4</string>
   <tabstop>ApplicationDate</tabstop>
   <tabstop>TodayButton</tabstop>
   <tabstop>AdvertLink</tabstop>
+  <tabstop>ContactName</tabstop>
+  <tabstop>ContactInfo</tabstop>
   <tabstop>JobDescription</tabstop>
  </tabstops>
  <resources/>

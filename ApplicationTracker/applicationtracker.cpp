@@ -18,6 +18,7 @@ ApplicationTracker::ApplicationTracker(QWidget *parent)
     AppTable = ui->tApplications;
     DataFile.replace_filename("AppData.json");
     AppDataFile.setFileName(DataFile);
+    connect(AppTable, &QTableView::clicked, this, &ApplicationTracker::UpdateCurrent);
     InitModelView();
 }
 
@@ -37,7 +38,7 @@ void ApplicationTracker::on_AddApplication_clicked()
 
 void ApplicationTracker::on_EditApplication_clicked()
 {
-    QItemSelectionModel* Selected = ui->tApplications->selectionModel();
+    QItemSelectionModel* Selected = AppTable->selectionModel();
     if(!Selected->hasSelection()) return;
     int RowSelected = Selected->selectedRows()[0].row();
     QList<QStandardItem*> lisToPass = AppDataModel.takeRow(RowSelected);
@@ -50,12 +51,20 @@ void ApplicationTracker::on_EditApplication_clicked()
 
 void ApplicationTracker::on_DeleteApp_clicked()
 {
-    QItemSelectionModel* Selected = ui->tApplications->selectionModel();
+    QItemSelectionModel* Selected = AppTable->selectionModel();
     if(!Selected->hasSelection()) return;
 
     if(!ConfirmDelete()) return;
 
     RemoveApplication(Selected);
+}
+
+void ApplicationTracker::UpdateCurrent()
+{
+    QItemSelectionModel* Selected = AppTable->selectionModel();
+    if(!Selected->hasSelection()) return;
+    int RowSelected = Selected->selectedRows()[0].row();
+    ui->tbSelApplication->setText(CurrApp.UpdateView(GetRow(RowSelected)));
 }
 
 void ApplicationTracker::ApplicationAdded()
@@ -321,9 +330,22 @@ int ApplicationTracker::GetTableWidth()
     int TableWidth = 0;
     for (int i = 0; i < AppDataModel.columnCount(); i++)
     {
-        TableWidth += ui->tApplications->columnWidth(i);
+        TableWidth += AppTable->columnWidth(i);
     }
     return TableWidth;
+}
+
+///Builds list of references to data for display function.
+///takeRow() inappropriate due to removing and replacement required in view
+QList<QStandardItem*> ApplicationTracker::GetRow(int index)
+{
+    QList<QStandardItem*> lisToPass;
+    for(int i = 0; i < AppDataModel.columnCount(); i++)
+    {
+        QStandardItem* ItemToPass = AppDataModel.item(index, i);
+        lisToPass.append(ItemToPass);
+    }
+    return lisToPass;
 }
 
 bool ApplicationTracker::ConfirmDelete()

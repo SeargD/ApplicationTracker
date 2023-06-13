@@ -89,10 +89,10 @@ QHash<QString, QVariant> NewAppDialog::BuildAppHash()
     FormInput.insert(QString("10"), QVariant(QDate::currentDate().toString(Qt::DateFormat::ISODate)));
 
     //LastAction - Default set to Application submitted
-    FormInput.insert(QString("8"), QVariant("0"));
+    FormInput.insert(QString("11"), QVariant("0"));
 
     //FollowupAction - Default set to Email Recruiter
-    FormInput.insert(QString("8"), QVariant("0"));
+    FormInput.insert(QString("12"), QVariant("0"));
 
     //TODO: Implement Input guards for form.Probably in wrong place.
     //InputGuards(FormInput);

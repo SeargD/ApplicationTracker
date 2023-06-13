@@ -8,6 +8,7 @@
 #include <QFile>
 #include <filesystem>
 #include <QJsonArray>
+#include "currentapplication.h"
 
 
 
@@ -43,6 +44,7 @@ private:
     void ParseActionStatus();
     void FitModelToWidth();
     int GetTableWidth();
+    QList<QStandardItem*> GetRow(int index);
 
     bool ConfirmDelete();
 
@@ -52,8 +54,9 @@ private:
     QFile AppDataFile;
     QJsonArray AppData;
     QStandardItemModel AppDataModel;
+    CurrentApplication CurrApp;
 
-    QTableView* AppTable;
+    QTableView* AppTable;//alias for ui->tApplications
 
 private slots:
     void on_AddApplication_clicked();
@@ -62,6 +65,7 @@ private slots:
     void ApplicationEdited(QList<QStandardItem*> EditRow);
     void EditDiscarded(QList<QStandardItem*> EditRow);
     void on_DeleteApp_clicked();
+    void UpdateCurrent();
 };
 
 #endif // APPLICATIONTRACKER_H
